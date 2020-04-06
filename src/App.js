@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import produce from 'immer';
-const numRows = 50;
-const numCols = 50;
+const numRows = 20;
+const numCols = 20;
 // for find neighbout vals
 const operations = [ [ 0, 1 ], [ 0, -1 ], [ 1, -1 ], [ -1, 1 ], [ 1, 1 ], [ -1, -1 ], [ 1, 0 ], [ -1, 0 ] ];
 const generateEmptyGrid = () => {
@@ -74,50 +74,52 @@ function App() {
   return (
     // onclick has to be in lamda or creates infinte loop
     <React.Fragment>
-      <button
-        onClick={() => {
-          setRunning(!running);
-          // race condition
-          if (!running) {
-            runningRef.current = true;
-            runSimulation();
-          }
-        }}
-      >
-        {' '}
-        {running ? 'stop' : 'start'}
-      </button>
-      <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
-      <button onClick={() => setGrid(generateRandomGrid())}>random</button>
+      <div className="App-header">
+        <button
+          onClick={() => {
+            setRunning(!running);
+            // race condition
+            if (!running) {
+              runningRef.current = true;
+              runSimulation();
+            }
+          }}
+        >
+          {' '}
+          {running ? 'stop' : 'start'}
+        </button>
+        <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
+        <button onClick={() => setGrid(generateRandomGrid())}>random</button>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${numCols}, 20px)`
-        }}
-      >
-        {grid.map((rows, i) =>
-          rows.map((col, k) => (
-            <div
-              onClick={() => {
-                // use immmer to not mutate state
-                const newGrid = produce(grid, gridCopy => {
-                  // toggle
-                  gridCopy[i][k] = gridCopy[i][k] ? 0 : 1;
-                });
-                //
-                setGrid(newGrid);
-              }}
-              key={`${i}-${k}`}
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: grid[i][k] ? 'pink' : '#f0f0f0',
-                border: 'solid 1px black'
-              }}
-            />
-          ))
-        )}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${numCols}, 25px)`
+          }}
+        >
+          {grid.map((rows, i) =>
+            rows.map((col, k) => (
+              <div
+                onClick={() => {
+                  // use immmer to not mutate state
+                  const newGrid = produce(grid, gridCopy => {
+                    // toggle
+                    gridCopy[i][k] = gridCopy[i][k] ? 0 : 1;
+                  });
+                  //
+                  setGrid(newGrid);
+                }}
+                key={`${i}-${k}`}
+                style={{
+                  width: 25,
+                  height: 25,
+                  backgroundColor: grid[i][k] ? 'rebeccapurple' : '#d9cee4',
+                  border: 'solid 1px white'
+                }}
+              />
+            ))
+          )}
+        </div>
       </div>
     </React.Fragment>
   );
