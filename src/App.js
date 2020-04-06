@@ -94,7 +94,7 @@ function App() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: `repeat(${numCols}, 25px)`
+            gridTemplateColumns: `repeat(${numCols}, 20px)`
           }}
         >
           {grid.map((rows, i) =>
@@ -111,10 +111,10 @@ function App() {
                 }}
                 key={`${i}-${k}`}
                 style={{
-                  width: 25,
-                  height: 25,
-                  backgroundColor: grid[i][k] ? 'rebeccapurple' : '#d9cee4',
-                  border: 'solid 1px white'
+                  width: 20,
+                  height: 20,
+                  backgroundColor: grid[i][k] ? 'rebeccapurple' : '#d4b1ce',
+                  border: 'solid 1px #d6b8da'
                 }}
               />
             ))
@@ -126,15 +126,15 @@ function App() {
 }
 
 /* world where the edges consider the other side neighbours 
-(otherwise the edges never change) then you can do it really neatly using modulus like this:
-const countNeighbors = (grid: any, x: number, y: number) => {
-  return operations.reduce((acc, [i, j]) => {
-    const row = (x + i + numRows) % numRows;
-    const col = (y + j + numCols) % numCols;
-    acc += grid[row][col];
-    return acc;
-  }, 0);
-};
-*/
+      (otherwise the edges never change) then you can do it really neatly using modulus like this:
+      const countNeighbors = (grid: any, x: number, y: number) => {
+        return operations.reduce((acc, [i, j]) => {
+          const row = (x + i + numRows) % numRows;
+          const col = (y + j + numCols) % numCols;
+          acc += grid[row][col];
+          return acc;
+        }, 0);
+      };
+      */
 
 export default App;
